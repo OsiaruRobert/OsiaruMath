@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OsiaruMath</title>
+  <link rel="stylesheet" href="CSS/style.css" type="text/css" media="all" />
+  <script type="text/javascript" charset="utf-8">
+       if (navigator.onLine) {
+    alert("You are online. Please Enjoy my app");
+} else {
+    alert("You are offline. Please turn on your data and refresh the page.");
+}
+  </script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js"></script>
+
+<style type="text/css" media="all">
+  :root {
+  --primary-color: #8D6213;
+  --secondary-color: #D1B281;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  font-family: Sans-Serif;
+  background-color: var(--secondary-color);
+}
+/*OSIARUMATH*/
+header h1 {
+  margin: 0px auto 10px auto;
+  padding: 7px;
+  background-color: var(--primary-color);
+}
+header p {
+  padding: 15px;
+}
+
+button {
+  float: right;
+  text-align: center;
+  font-size: 16px;
+  background-color: var(--primary-color);
+  color: #000;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#intro {
+  margin: 10px;
+  padding: 10px;
+  border: 3px solid #000;
+  border-radius: 20px;
+}
+#greetings {
+  margin: 10px;
+  padding: 10px;
+  font-size: 25px;
+  border: 3px solid #000;
+  border-radius: 20px;
+  display: none;
+}
+#holdUsername{
+ color: #05052A;
+}
+
+#backButton {
+  display: none;
+}
+.userInput {
+  position: relative;
+  right: 3px;
+  width: 100%;
+  height: 30px;
+  border-radius: 11px;
+  text-align: right;
+}
+
+div {
+  margin: 20px 3px;
+  width: auto;
+}
+div input {
+  width: 150px;
+  border-style: none;
+  border-bottom: 4px solid #000;
+}
+
+
+fieldset {
+  width: 80%;
+  margin: 10%;
+  padding: 10px;
+  background-color: var(--secondary-color);;
+  border: 1px solid #8E4B00;
+  display: none;
+}
+legend {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.solveButton {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.output {
+  color: #fff;
+  border-top: 4px solid #fff;
+}
+
+.verySmall {
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+}
+
+.matrixOfParticularContainer{
+  min-width: 100px;
+  max-width: 300px;
+  margin-top:10px;
+  border-left: solid 4px;
+  border-right: solid 4px;
+  display: inline-block;
+}
+.matrixOfParticularContainer div{
+  min-width: 10px;
+  max-width: 290px;
+}
+#matrixProblem, #guideInfillingMatrix, #martixShowWorking{
+  display: none;
+}
+#describeMatrix, #martixParameters{
+  border-bottom: solid 6px;
+  padding: 10px;
+}
+#createMatrix{
+  float: none;
+  margin-left: 70%;
+}
+#describeMatrix textarea{
+  display: inline-block;
+  position: relative;
+  top:5px;
+}
+
+footer {
+  margin-top: 200px;
+  padding: 15px;
+  background-color: var(--primary-color);
+  opacity: 70%;
+}
+
+
+@media (min-width: 700px) {
+  body {
+    font-size: 60px;
+  }
+  fieldset {
+    width: 95%;
+    margin: 10% auto;
+    border-radius: 40px;
+    border-width: 15px;
+  }
+  div input {
+    height: 50px;
+    width: 300px;
+    font-size: 40px;
+  }
+  select {
+    width: 120px;
+    height: 60px;
+    font-size: 45px;
+  }
+  button {
+    font-size: 60px;
+  }
+  .output {
+    font-size: 50px;
+  }
+}
+</style>
+</head>
+<body>
+  <header>
+    <h1>OsiaruMath</h1>
+    <p class="intro">
+      OsiaruMath is designed to help Engineering students just like you to solve some engineering problems with ease. Such as : Stress, Strain, Area of various shapes, Young modules of materials, etc
+    </p>
+  </header>
+
+  <section id="intro">
+    <h3 class="intro">
+      My name is OsiaruMath.
+    </h3>
+    <p class="intro">
+      What's your name?...
+    </p>
+    <input class="intro" type="text" name="username" id="username" placeholder="Enter Your Name" />
+    <button class="intro" id="replyButton" type="button">Send</button>
+  </section>
+
+  <!---Go Back--->
+  <button id="backButton" type="button">Back</button>
+
+  <section class="greetings" id="greetings">
+    <h3 class="greetings">
+      Welcome <span id="holdUsername"></span>.
+    </h3>
+    <p class="greetings">
+      What do you want to solve?...
+    </p>
+
+
+    <!---Instruct OsiaruMath--->
+    <select class="userInput" name="ourJob" id="ourJob">
+      <option value=undefined>I want to...</option>
+      <option value="rectangleArea">Area of a Rectangle</option>
+      <option value="circleArea">Area of a Circle</option>
+      <option value="stress">Solve Stress</option>
+      <option value="strain">Solve Strain</option>
+      <option value="differentiate">Differentiate</option>
+      <option value="Matrix">Matrix</option>
+      opt+
+    </select>
+  </section>
+
+
+
+
+  <div id="solvings">
+
+    <!---rectangleArea--->
+    <fieldset id="rectangleArea">
+      <legend>AREA Of A Rectangle</legend>
+      <p class="explanation">
+        Calculate the area of a rectangle.
+      </p>
+      <div id="rectangleAreaParameters">
+      </div>
+      <button class="solveButton" id="checkrectangleArea">SOLVE</button>
+      <p class="output" id="rectangleAreaDisplay"></p>
+    </fieldset>
+
+
+    <!--circlArea--->
+    <fieldset id="circleArea">
+      <legend>AREA Of A Circle</legend>
+      <p class="explanation">
+        Calculate the area of a circle.
+      </p>
+      <div id="circleAreaParameters">
+      </div>
+      <button class="solveButton" id="checkcircleArea">SOLVE</button>
+      <p class="output" id="circleAreaDisplay"></p>
+    </fieldset>
+
+    <!---STRESS--->
+    <fieldset id="stress">
+      <legend>  STRESS</legend>
+      <div id="stressWithF&A">
+        <p class="explanation">
+          Get the Stress when given The Applied Force and Area
+        </p>
+        <p id="stressParameters"></p>
+        <div id="stressParameters"></div>
+        <button class="solveButton" id="checkStress">SOLVE</button>
+        <p class="output" id="stressDisplay"></p>
+      </div>
+    </fieldset>
+
+    <!---STRAIN--->
+    <fieldset id="strain">
+      <legend>
+        STRAIN
+      </legend>
+      <div id="strainParameters">
+      </div>
+      <button class="solveButton" id="checkStrain">SOLVE</button>
+      <p class="output" id="strainDisplay"></p>
+    </fieldset>
+
+    <!--Differentiate--->
+    <fieldset id="differentiate">
+      <legend>Differentiate</legend>
+      <p class="explanation">
+        Find the derivative.
+        Please use small letters.
+      </p>
+      <div id="differentiateParameters">
+      </div>
+      <button class="solveButton" id="checkDifferentiate">SOLVE</button>
+      <p class="output" id="differentiateDisplay"></p>
+    </fieldset>
+
+    <!---Matrix--->
+    <fieldset id="Matrix">
+      <legend>Solve Matrix</legend>
+      <p class="explanation" id="matrixIntro">
+        Let's solve your Matrix problem together.
+        First, let's create the matrix.
+      </p>
+
+      <!---User Tell us want the matrix should look like--->
+      <div id="describeMatrix">
+        <span id="guideInNamingMatrix">
+          Matrix Name: </span>
+
+        <input type="text" name="matrixName" maxlength="1" id="matrixName" placeholder="Matrix Name" />
+
+        <div id="orderContainer">
+          Order Of The Matrix:<br />
+          <input type="number" name="row" id="row" placeholder="row" class="verySmall" /> X <input type="number" name="column" id="column" placeholder="column" class="verySmall" />
+        </div>
+
+        <button id="createMatrix" class="solveButton" type="button"> Create Matrix</button>
+      </div>
+
+      <p class="explanation" id="guideInfillingMatrix">
+        Enter the values for your Matrix in small white boxs.
+      </p>
+      <div id="martixParameters">
+        <!---Martix Parameters--->
+      </div>
+
+
+      <select name="matrixProblem" id="matrixProblem">
+        <option value=undefined>Operate Matrix</option>
+        <option value="Plus">Addition Of Two Matrixs</option>
+        <option value="Minus">Difference Between Matrixs</option>
+        <option value="Times">Multiple By Another Matrixs</option>
+        <option value="Divide_By">Divide By Another Matrixs</option>
+        <option value="determinant">Determinant Of Matrix</option>
+        <option value="co_factor">Co-Factor</option>
+        <option value="inverse">Inverse Of A Matrix</option>
+        <option value="transpose">Transpose Of A Matrix</option>
+      </select>
+
+      <div id="martixShowWorking">
+        <!---Where will show small working--->
+        <div id="matrixOne">
+          <!---Where will show our first Matrix--->
+        </div>
+        <div id="matrixTwo">
+          <!---Where will show our second Matrix--->
+        </div>
+      </div>
+
+      <button class="solveButton" id="checkMatrix" style="display: none">SOLVE</button>
+      <p class="output" id="matrixDisplay"></p>
+    </fieldset>
+
+  </div>
+
+
+  <footer>
+    <p>
+      Powered by <b>Believe Robert</b> <i>U2022/3010024</i>
+    </p>
+  </footer>
+
+ <script type="text/javascript" charset="utf-8">
+   class Quantity {
+  constructor(ID, name, defaultUnit, size) {
+    this.ID = ID;
+    this.name = name;
+    this.magnitude = "magnitude";
+    this.defaultUnit = defaultUnit;
+    this.unit = defaultUnit;
+    this.size = size;
+    this.place = document.getElementById(`${this.ID}Value`);
+  }
+
+  createQuantityIn(House) {
+    let displayName = this.name;
+    let codeIdName = this.ID;
+
+    document.getElementById(House).innerHTML += `<div id="${codeIdName}Div">
+    <h3 id="${codeIdName}Name">${displayName} :</h3>
+    <input name="${codeIdName}" id="${codeIdName}Value" placeholder="Input the ${displayName} value" class="${this.size}" type="text"/>
+
+    <select name="${codeIdName}Unit" id="${codeIdName}Unit">
+    <option value=${this.defaultUnit}>${this.defaultUnit}</option>
+
+    <option value="centi${this.defaultUnit}">centi${this.defaultUnit}</option>
+
+    <option value="mili${this.defaultUnit}">mili${this.defaultUnit}</option>
+
+    <option value="kilo${this.defaultUnit}">kilo${this.defaultUnit}</option>
+    </select>
+    </div>`;
+  }
+
+  convertFisrt() {
+    let unit = this.unit;
+    if (unit.includes("mili")) {
+      this.magnitude = this.magnitude*0.001;
+    } else if (unit.includes("kilo")) {
+      this.magnitude = this.magnitude * 1000;
+    } else if (unit.includes("centi")) {
+      this.magnitude = this.magnitude*0.01;
+    }
+  }
+
+  convertUnit() {
+    this.convertFisrt();
+    let unit = this.unit;
+    if (unit.includes("²")) {
+      // Area
+      this.convertFisrt();
+    }
+  }
+
+  getMagnitudeAndUnit() {
+    this.magnitude = document.getElementById(`${this.ID}Value`).value;
+    this.unit = document.getElementById(`${this.ID}Unit`).value;
+    this.convertUnit();
+  }
+
+  storeQuantity() {
+    this.getMagnitudeAndUnit();
+    if (this.magnitude === 0) {
+      return alert(`NO ${this.ID} has been given.`);
+    }
+  }
+};
+
+
+class Matrix {
+  constructor() {;
+    this.name;
+    this.row;
+    this.column;
+  }
+
+
+//Method to create Matrix
+  createMatrixIn(workPlace) {
+    //set matrix name
+    this.name = document.getElementById("matrixName").value;
+    //set matrix row
+    this.row = document.getElementById("row").value;
+    //set matrix column
+    this.column = document.getElementById("column").value;
+    //where matrix is nested
+    let location = document.getElementById(workPlace);
+    //the cell
+    let cell;
+    //the row
+    let divRow;
+    //the row ID
+    let divRowId;
+    //the actual matrix element
+    let Home = `<div class=
+    "matrixOfParticularContainer" id="Matrix${this.name}"> </div>`;
+
+    //put the actual matrix in where we want it
+    location.innerHTML = Home;
+    //loop for rows
+    for (let i = 0; i < this.row; i++) {
+      divRow = `<div id="${this.name}${i+1}"> </div>`;
+      document.getElementById(`Matrix${this.name}`).innerHTML += divRow;
+
+      //loop for columns
+      for (let k = 0; k < this.column; k++) {
+        divRowId = document.getElementById(`${this.name}${i+1}`);
+        //Create a variable for each cell
+        window[`{this.name}{i+1}{k+1}`] = `${this.name}${i+1}${k+1}`;
+        cell = `<input id="${this.name}${i+1}${k+1}" class="verySmall" type="number"/>`;
+        divRowId.innerHTML += cell;
+      }
+    }
+  }
+
+
+//Method to obtain the values 
+  getMatrixValues() {
+    window[`Matrix${this.name}array`] = [];
+    for (let i = 0; i < this.row; i++) {
+      let rowValues = [];
+      for (let k = 0; k < this.column; k++) {
+        // Construct the input ID
+        let inputId = `${this.name}${i + 1}${k + 1}`;
+        // Get the input element
+        let inputElement = document.getElementById(inputId);
+        // Retrieve the value from the input element
+        rowValues.push(inputElement.value);
+      }
+      window[`Matrix${this.name}array`] .push(rowValues);
+    }
+    //MatrixAarray
+    return window[`Matrix${this.name}array`];
+  }
+
+}
+
+
+let message;
+
+/*______Helper Functions________*/
+//function to create varible
+function initialValues(id, name, unit, location, size) {
+  window[id] = new Quantity(id,
+    name,
+    unit,
+    size);
+  window[id].createQuantityIn(location);
+};
+
+//We get our parameters Array
+function getParameters(parametersArray) {
+  for (let i = 0; i < parametersArray.length; i++) {
+    parametersArray[i].storeQuantity();
+    window[`Value${i + 1}`] = parametersArray[i].magnitude;
+  }
+};
+//Display our Value
+function showAnswer(term, termFormula, unit, EnglishName) {
+  message = `${EnglishName}: ${termFormula}${unit}`;
+  document.getElementById(`${term}Display`).innerText = message;
+};
+//Write in standard form
+function toStandardForm(number) {
+  if (number === 0) return "0 x 10^0";
+  // Handle zero explicitly
+  const exponent = Math.floor(Math.log10(Math.abs(number)));
+  const coefficient = (number / Math.pow(10, exponent)).toFixed(2);
+  // 2 decimal places
+  return `${coefficient} x 10^${exponent}`;
+}
+
+/*__________Parameters________*/
+//parameter for circle area
+initialValues("cirleleAreaRadius", "Radius", "meter", "circleAreaParameters", "medium");
+
+//parameter for Rectangle area
+initialValues("rectangleAreaLength", "Length", "meter", "rectangleAreaParameters", "medium");
+initialValues("rectangleAreaBreadth", "Breadth", "meter", "rectangleAreaParameters", "medium");
+
+//parameter for Stress
+initialValues("stressForce", "Force", "Newton", "stressParameters", "medium");
+initialValues("stressArea", "Area", "meter²", "stressParameters", "medium");
+
+//parameter for Strain
+initialValues("strainFinal_Length", "Final_Length", "meter", "strainParameters", "medium");
+initialValues("strainInitial_Length", "Initial_Length", "meter", "strainParameters", "medium");
+
+//parameter for Differentiation
+initialValues("dependentVariable", "Function", "", "differentiateParameters", "medium");
+initialValues("inDependentVariable", "Independent Variable", "", "differentiateParameters", "medium");
+
+
+/*_______Solving Function______*/
+//Solve Rectangle Area Function
+function solverectangleArea() {
+  getParameters([rectangleAreaLength, rectangleAreaBreadth]);
+  let Formula = Value1 * Value2;
+  Formula = toStandardForm(Formula);
+  showAnswer("rectangleArea", Formula, "m²", "Area of the Rectangle");
+};
+
+//Solve Circle Area Function
+function solveCircleArea() {
+  getParameters([cirleleAreaRadius]);
+  let Formula = Value1 * Value1 * Math.PI;
+  Formula = toStandardForm(Formula);
+  showAnswer("circleArea", Formula, "m²", "Area of the Circle");
+};
+
+//Solve Stress Function
+function solveStress() {
+  getParameters([stressForce, stressArea]);
+  let Formula = Value1 /Value2;
+  Formula = toStandardForm(Formula);
+  showAnswer("stress", Formula, "Pa", "Stress");
+};
+
+//Solve Strain Function
+function solveStrain() {
+  getParameters([strainFinal_Length, strainInitial_Length]);
+  //inner Variables
+  let e = Value1 - Value2;
+  let elongation = toStandardForm(e);
+  let Formula = e/Value2;
+  let typeOfStrain = "Strain";
+  //know the type of Strain
+  if (Formula < 0) {
+    typeOfStrain = "Compressive strain";
+    Formula = Formula * -1
+  } else {
+    typeOfStrain = "Tensile strain";
+  };
+  //formatting answer
+  Formula = toStandardForm(Formula);
+  message = `${typeOfStrain} : ${Formula}.
+  Elongation : ${elongation} ${strainInitial_Length.defaultUnit}s`;
+  document.getElementById("strainDisplay").innerText = message;
+}
+
+//Solve Differentiate Function
+function solveDifferentiate() {
+  getParameters([dependentVariable, inDependentVariable]);
+  let Formula = math.derivative(Value1, Value2);
+  showAnswer("differentiate", Formula, "", `dy/d${Value2}`);
+};
+
+
+
+/*_____Solving The Matrix section____*/
+
+//trackers 
+let state = 0;
+let moreMatrix = [];
+
+//Matrix UI part 
+let guideInNamingMatrix = document.getElementById('guideInNamingMatrix');
+let guideInfillingMatrix = document.getElementById('guideInfillingMatrix');
+let matrixIntro = document.getElementById('matrixIntro');
+let matrixDescription = document.getElementById('describeMatrix');
+let matrixProblem = document.getElementById("matrixProblem");
+let martixParameters = document.getElementById("martixParameters");
+let martixShowWorking = document.getElementById("martixShowWorking");
+
+
+//functioning parts 
+let matrixCreator = document.getElementById('createMatrix');
+let checkMatrix = document.getElementById("checkMatrix");
+
+//We Create The Matrix by clicking on createMatrix.
+matrixCreator.addEventListener("click", ()=> {
+  guideInfillingMatrix.style = "display: block";
+  matrixIntro.style = "display: none";
+  matrixDescription.style = "display: none";
+  if (state < 1) {
+    //Creating first Matrix
+    matrixProblem.style = "display: block";
+  } else {
+    //Creating second Matrix
+    matrixProblem.style = "display: none";
+    checkMatrix.style = "display: block";
+    martixParameters.style = "display: block";
+  }
+  state = 1;
+  //Create matrix with name from that our input element.
+  window[`Matrix{document.getElementById("matrixName").value}`] = new Matrix();
+  //create Matrix in martixParameters.
+  window[`Matrix{document.getElementById("matrixName").value}`].createMatrixIn("martixParameters");
+});
+//We Create The second Matrix by changing on matrixProblem to +,-,*,/.
+matrixProblem.addEventListener("change", ()=> {
+  checkMatrix.style = "display: block";
+  if (matrixProblem.value === "Plus" || matrixProblem.value === "Minus" || matrixProblem.value === "Times" || matrixProblem.value === "Divide_By") {
+
+    martixParameters.style = "display: none";
+    guideInfillingMatrix.style = "display: none";
+    matrixProblem.style = "display: none";
+    checkMatrix.style = "display: none";
+    guideInNamingMatrix.innerHTML = "Enter name for the second Matrix here;"
+
+    let varible = window[`Matrix{document.getElementById("matrixName").value}`].getMatrixValues();
+    console.log(`Matrix :${varible}`);
+    //Put first matrix in an array.
+    moreMatrix.push(varible);
+    console.log(`Array of Matrix: ${moreMatrix}`);
+    presentMatrix(moreMatrix[0], "firstMatrix", "matrixOne");
+    document.getElementById("matrixOne").innerHTML+=matrixProblem.value;
+    martixShowWorking.style="display:block";
+    //Allow us to enter new matrix
+    document.querySelectorAll('input').forEach(input=> input.value = "");
+    matrixDescription.style = "display: block";
+  }
+});
+
+
+//Display the Matrix for the user to see.
+function presentMatrix(javascriptMatrix, name,location) {
+  //Makes JavaScript matrix display well
+  if (Array.isArray(javascriptMatrix)) {
+    let divRow;
+    let divRowId;
+    let cell;
+    let cellContent;
+    let Home = `<div class=
+    "matrixOfParticularContainer" id="${name}"> </div>`;
+    document.getElementById(location).innerHTML = Home;
+    for (let i = 0; i < javascriptMatrix.length; i++) {
+      divRow = `<div id="${name}${i+1}"> </div>`;
+      document.getElementById(`${name}`).innerHTML += divRow;
+      //loop for columns
+      for (let k = 0; k < javascriptMatrix[i].length; k++) {
+        divRowId = document.getElementById(`${name}${i+1}`);
+        //Create a variable for each cell
+        cellContent = javascriptMatrix[i][k];
+        if (typeof cellContent.toFixed === 'function') {
+          cellContent = cellContent.toFixed(2);
+        };
+        cell = `<span id="${name}{i+1}${k+1}" class="verySmall" > ${cellContent}</span>`;
+        divRowId.innerHTML += cell;
+      }
+    }
+  } else {
+    //Answer isn't an arrays
+    document.getElementById(location).innerHTML = javascriptMatrix;
+  }
+}
+
+// Function to calculate the cofactor matrix of any square matrix
+function getCofactorMatrix(matrix) {
+  const n = matrix.length;
+  // number of rows (and columns)
+  let cofactorMatrix = [];
+  for (let i = 0; i < n; i++) {
+    cofactorMatrix[i] = [];
+    for (let j = 0; j < n; j++) {
+      // Create a minor matrix by excluding the i-th row and j-th column
+      const minor = matrix.map(row => row.filter((_, colIndex) => colIndex !== j))
+      .filter((_, rowIndex) => rowIndex !== i);
+      // Calculate the determinant of the minor
+      const detMinor = math.det(math.matrix(minor));
+      // Calculate the cofactor
+      const sign = (i + j) % 2 === 0 ? 1: -1;
+      cofactorMatrix[i][j] = sign * detMinor;
+    }
+  }
+  return cofactorMatrix;
+}
+
+//Main Matrix Function
+function solveMatrix(venue) {
+  let Answer;
+  let varible = window[`Matrix{document.getElementById("matrixName").value}`].getMatrixValues();
+  let ourMainTake = matrixProblem.value;
+  //sub Functions
+  if (ourMainTake === "determinant") {
+    Answer = math.det(varible);
+  } else if (ourMainTake === "co_factor") {
+    Answer = getCofactorMatrix(varible)
+  } else if (ourMainTake === "transpose") {
+    Answer = math.transpose(varible);
+  } else if (ourMainTake === "inverse") {
+    Answer = math.inv(varible);
+  } else if (ourMainTake === "adjoint") {
+    console.log("adjoint");
+  } else if (ourMainTake === "Plus") {
+    //adding Matrix
+    Answer = math.add(moreMatrix[0], moreMatrix[1]);
+  } else if (ourMainTake === "Minus") {
+    //Minusing Matrix
+    Answer = math.subtract(moreMatrix[0], moreMatrix[1]);
+  } else if (ourMainTake === "Times") {
+    //multipling Matrix
+    Answer = math.multiply(moreMatrix[0], moreMatrix[1]);
+  } else if (ourMainTake === "Divide_By") {
+    //dividing matrix
+    Answer = math.dotDivide(moreMatrix[0], moreMatrix[1]);
+  } else {
+    console.log("Do something else");
+  }
+  presentMatrix(Answer, "Answer", venue);
+};
+
+
+//End of Matrix
+
+
+/*_____Listening Ears_______*/
+//Solve Matrix Problem
+document.getElementById("checkMatrix").addEventListener("click", ()=> {
+  try {
+    if (matrixProblem.value === "Plus" || matrixProblem.value === "Minus" || matrixProblem.value === "Times" || matrixProblem.value === "Divide_By") {
+      let varible = window[`Matrix{document.getElementById("matrixName").value}`].getMatrixValues();
+      //Put first matrix in an array.
+      moreMatrix.push(varible);
+      presentMatrix(moreMatrix[1], "secondMatrix", "matrixTwo");
+    };
+    solveMatrix("matrixDisplay");
+  } catch (err) {
+    alert(err);
+  }
+});
+//Solve Rectangle Area
+document.getElementById('checkrectangleArea').addEventListener("click", ()=> {
+  solverectangleArea("rectangleAreaDisplay")});
+//Solve Circle Area
+document.getElementById('checkcircleArea').addEventListener("click", ()=> {
+  solveCircleArea("circleAreaDisplay")});
+//Solve for stress
+document.getElementById('checkStress').addEventListener("click", ()=> {
+  solveStress("stressDisplay")});
+//Solve for Strain
+document.getElementById('checkStrain').addEventListener("click", ()=> {
+  solveStrain("strainDisplay")});
+//Differentiate
+document.getElementById('checkDifferentiate').addEventListener("click", ()=> {
+  solveDifferentiate("differentiateDisplay")});
+
+
+/*_______________________________________________________User_Innterface_________________________________________________________*/
+//interface Variables
+let backButton = document.getElementById("backButton");
+let greetings = document.getElementById("greetings");
+let intro = document.getElementById("intro");
+let holdUsername = document.getElementById("holdUsername");
+let task = document.getElementById("ourJob");
+let replyButton = document.getElementById('replyButton');
+const inputs = document.querySelectorAll('input,select');
+
+//Chat Box Behavior
+function doWork() {
+  //First act
+  let Username = document.getElementById("username").value;
+  if (Username.length > 3) {
+    if (Username === "Believe") {
+      alert("Welcome Believe My Great Creator.")
+    }
+    holdUsername.innerHTML = Username;
+    intro.style = "display: none";
+    greetings.style = "display: block";
+  } else {
+    alert("ENTER ANY NAME.");
+  }
+}
+
+//Tell OsiaruMath your name.
+replyButton.addEventListener('click', ()=> {
+  doWork();
+});
+
+//Direct User to what He wants to Solve
+task.addEventListener("change", ()=> {
+  greetings.style = "display: none";
+  let taskTodo = task.value;
+  document.getElementById(`${taskTodo}`).style = "display: block";
+  backButton.style = "display: block";
+});
+
+//To go back to Direction.
+backButton.addEventListener("click", ()=> {
+  greetings.style = "display: block";
+  let taskTodo = task.value;
+  document.getElementById(`${taskTodo}`).style = "display: none";
+  backButton.style = "display: none";
+  inputs.forEach(input => {
+    //input.value="";
+    location.reload();
+  });
+});
+
+alert('Welcome To OsiaruMath✅ Version 3');
+ </script>
+</body>
+</html>
